@@ -5,6 +5,8 @@
 
 Barbershop member information management system backend
 
+base on springboot、springdata-jpa
+
 2019年软件工程作业
 
 
