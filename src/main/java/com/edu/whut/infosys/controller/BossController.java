@@ -7,10 +7,7 @@ import com.edu.whut.infosys.bean.entity.Boss;
 import com.edu.whut.infosys.serivce.BarberService;
 import com.edu.whut.infosys.serivce.BossService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +55,8 @@ public class BossController {
         Result loginResult = bossService.login(boss);
         if(loginResult.isSuccess()){
             session.setAttribute("isLogin",true);
+            System.out.println("登陆"+request.getSession().getId());
+            System.out.println(boss.getUsername());
             session.setAttribute("username",boss.getUsername());
             System.out.println(barberService.findIdBarberByBossUsername(boss.getUsername()));
             Integer idBarberByBossUsername = barberService.findIdBarberByBossUsername(boss.getUsername());

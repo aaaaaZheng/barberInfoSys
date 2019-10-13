@@ -52,4 +52,9 @@ public class BarberServiceImpl implements BarberService {
         }
 
     }
+
+    @Override
+    public Barber findBarberByidbarber(Integer idbarber) {
+        return barberRepository.findByIdbarber(idbarber);
+    }
 }

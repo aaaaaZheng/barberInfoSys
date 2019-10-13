@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 @Data
 @Entity
-@JsonIgnoreProperties(value={"members","boss","billList","idmemeber","idbarber","hibernateLazyInitializer","handler","fieldHandler"})
+@JsonIgnoreProperties(value={"memberList","boss","billList","idmemeber","idbarber","hibernateLazyInitializer","handler","fieldHandler"})
 public class Barber {
     @Id
     @GeneratedValue
@@ -35,7 +35,7 @@ public class Barber {
     //@JoinColumn(name = "idmember",referencedColumnName = )
     @OneToMany(cascade={CascadeType.ALL},fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<Member> members;
+    private List<Member> memberList;
     @OneToMany(mappedBy = "barber",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("barber")
     @JSONField(serialize = false)

@@ -22,4 +22,11 @@ public interface BarberService {
      */
     Integer findIdBarberByBossUsername(String username);
 
+    /***
+     * 通过idbarber查找理发店
+     * @param idbarber
+     * @return
+     */
+    Barber findBarberByidbarber(Integer idbarber);
+
 }

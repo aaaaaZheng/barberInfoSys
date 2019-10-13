@@ -16,6 +16,13 @@ public interface BossRepository extends Repository<Boss,Integer> {
     Boss findBossByUsername(String username);
 
     /***
+     * 通过id查找boss
+     * @param idboss
+     * @return
+     */
+    Boss findByIdboss(Integer idboss);
+
+    /***
      * 根据用户名和密码查询
      * @param username
      * @param password
