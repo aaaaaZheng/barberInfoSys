@@ -24,34 +24,69 @@ public class PatternConsumptionController {
     HttpServletRequest request;
     @Autowired
     HttpServletResponse response;
+
+    /***
+     * 添加消费套餐
+     * @param patternConsumption
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public Result add(PatternConsumption patternConsumption){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
+        }*/
+        Object idbarber = request.getSession().getAttribute("idbarber");
+        if(idbarber==null){
+            Result result = new Result();
+            result.setMessage("还未添加店铺信息");
+            return result;
         }
-        return patternConsumptionService.addPattern(patternConsumption);
+        return patternConsumptionService.addPattern(patternConsumption,(Integer) idbarber);
     }
+
+    /***
+     * 查找所有消费套餐
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll(){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
+        }*/
+        Object idbarber = request.getSession().getAttribute("idbarber");
+        if(idbarber==null){
+            Result result = new Result();
+            result.setMessage("还未添加店铺信息");
+            return result;
         }
-        return patternConsumptionService.findAllPattern();
+        return patternConsumptionService.findAllPattern((Integer) idbarber);
     }
+
+    /***
+     * 删除消费套餐
+     * @param patternConsumption
+     * @return
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     private Result del(PatternConsumption patternConsumption){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
+        }*/
+        Object idbarber = request.getSession().getAttribute("idbarber");
+        if(idbarber==null){
+            Result result = new Result();
+            result.setMessage("还未添加店铺信息");
+            return result;
         }
-        return patternConsumptionService.delPattern(patternConsumption);
+        return patternConsumptionService.delPattern(patternConsumption,(Integer) idbarber);
     }
 }

@@ -32,11 +32,13 @@ public class BillServiceImpl  implements BillService {
     PatternConsumptionRepository patternConsumptionRepository;
 
     @Override
-    public Result addBill(Integer idBarber,Integer idMemeber,Integer idPatternConsumption) {
+    public Result addBill(Integer idBarber,Integer idMemeber,Integer idpatten) {
         Result result = new Result();
         Bill bill = new Bill();
         bill.setBarber(barberRepository.findByIdbarber(idBarber));
-        bill.setPatternConsumption(patternConsumptionRepository.findByIdpatternConsumption(idPatternConsumption));
+        bill.setPatternConsumption(patternConsumptionRepository.findByIdpatternConsumption(idpatten));
+        System.out.println("套餐号"+idpatten);
+        System.out.println("套餐"+patternConsumptionRepository.findByIdpatternConsumption(idpatten));
         bill.setMember(memberRepository.findByIdmember(idMemeber));
         bill.setAmount(bill.getPatternConsumption().getAmount());
         if(bill.getAmount()>bill.getMember().getAmount()){
@@ -82,10 +84,11 @@ public class BillServiceImpl  implements BillService {
             for (Object row : result1) {
                 Object[] rowArray = (Object[]) row;
                 Map<String, Object> mapArr = new HashMap<String, Object>();
-                mapArr.put("memberName", rowArray[0]);
-                mapArr.put("BarberName", rowArray[1]);
-                mapArr.put("patternName", rowArray[2]);
-                mapArr.put("amount", rowArray[3]);
+                mapArr.put("createTime", rowArray[0]);
+                mapArr.put("memberName", rowArray[1]);
+                mapArr.put("BarberName", rowArray[2]);
+                mapArr.put("patternName", rowArray[3]);
+                mapArr.put("amount", rowArray[4]);
                 list.add(mapArr);
             }
             //List<Bill> bills = billRepository.findByBarber(barber);
@@ -107,10 +110,11 @@ public class BillServiceImpl  implements BillService {
             for (Object row : result1) {
                 Object[] rowArray = (Object[]) row;
                 Map<String, Object> mapArr = new HashMap<String, Object>();
-                mapArr.put("memberName", rowArray[0]);
-                mapArr.put("BarberName", rowArray[1]);
-                mapArr.put("patternName", rowArray[2]);
-                mapArr.put("amount", rowArray[3]);
+                mapArr.put("createTime", rowArray[0]);
+                mapArr.put("memberName", rowArray[1]);
+                mapArr.put("BarberName", rowArray[2]);
+                mapArr.put("patternName", rowArray[3]);
+                mapArr.put("amount", rowArray[4]);
                 list.add(mapArr);
             }
             //List<Bill> bills = billRepository.findByMember(member);

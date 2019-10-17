@@ -3,7 +3,9 @@ package com.edu.whut.infosys.controller;
 
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
+import com.edu.whut.infosys.bean.entity.Boss;
 import com.edu.whut.infosys.serivce.BarberService;
+import com.edu.whut.infosys.serivce.BossService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class BarberController {
     @Autowired
     BarberService barberService;
     @Autowired
+    BossService bossService;
+    @Autowired
     HttpServletRequest request;
     @Autowired
     HttpServletResponse response;
@@ -33,19 +37,19 @@ public class BarberController {
     @PostMapping()
     public Result add(Barber barber){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
-            Result result = new Result();
-            result.setMessage("请先登录");
-            return result;
-        }
         Result result1 = barberService.addBarber(barber,(String) username);
         if(result1.isSuccess()==true){
-            Integer idBarberByBossUsername = barberService.findIdBarberByBossUsername((String) username);
-            request.getSession().setAttribute("idbarber", idBarberByBossUsername);
+            Boss boss = bossService.findByUsername((String) username);
+
+            request.getSession().setAttribute("idbarber", boss.getBarber().getIdbarber());
         }
         return result1;
     }
 
+    /***
+     * 获取理发店信息
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public Result getBarber(){
         Object username = request.getSession().getAttribute("username");
@@ -55,10 +59,7 @@ public class BarberController {
         System.out.println(request.getSession().getAttribute("isLogin"));
         System.out.println("获取barber"+request.getSession().getId());
 
-        if (username==null){
-            result.setMessage("请先登录");
-            return result;
-        }
+
         if(idbarber==null){
             result.setMessage("还未添加店铺信息");
             return result;

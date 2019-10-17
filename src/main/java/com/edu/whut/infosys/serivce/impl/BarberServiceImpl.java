@@ -29,10 +29,18 @@ public class BarberServiceImpl implements BarberService {
         if(barber.getName()==null || barber.getAddress()==null  || bossName==null){
             result.setMessage("添加失败，信息不完整");
         }else {
-            barber.setBoss(bossRepository.findBossByUsername(bossName));
-            barberRepository.save(barber);
-            result.setSuccess(true);
-            result.setMessage("添加成功");
+            Boss bossByUsername = bossRepository.findBossByUsername(bossName);
+            Barber byName = barberRepository.findByBoss(bossByUsername);
+            if(byName!=null){
+                result.setMessage("只能添加一个店铺");
+            }else{
+                barber.setBoss(bossByUsername);
+                Barber newBarber = barberRepository.save(barber);
+                bossByUsername.setBarber(newBarber);
+                bossRepository.save(bossByUsername);
+                result.setSuccess(true);
+                result.setMessage("添加成功");
+            }
         }
         return result;
     }

@@ -13,12 +13,12 @@ import java.util.List;
  */
 @Data
 @Entity
-@JsonIgnoreProperties(value={"billList","hibernateLazyInitializer","handler","fieldHandler"})
+@JsonIgnoreProperties(value={"barber","billList","hibernateLazyInitializer","handler","fieldHandler"})
 public class PatternConsumption {
     @Id
     @GeneratedValue
     private Integer idpatternConsumption;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String name;
     @Column(nullable = false)
     private Float amount;
@@ -26,4 +26,9 @@ public class PatternConsumption {
     @JSONField(serialize = false)
     @ToString.Exclude
     private List<Bill> billList;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name = "idbarber")
+    @JSONField(serialize = false)
+    @ToString.Exclude
+    private Barber barber;
 }

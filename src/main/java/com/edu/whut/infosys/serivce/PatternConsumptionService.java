@@ -13,19 +13,19 @@ public interface PatternConsumptionService {
      * @param patternConsumption
      * @return
      */
-    Result addPattern(PatternConsumption patternConsumption);
+    Result addPattern(PatternConsumption patternConsumption,Integer idbarber);
 
     /***
      * 查找所有消费方式
      * @return
      */
-    Result findAllPattern();
+    Result findAllPattern(Integer idbarber);
 
     /***
      * 删除消费方式
      * @param patternConsumption
      * @return
      */
-    Result delPattern(PatternConsumption patternConsumption);
+    Result delPattern(PatternConsumption patternConsumption,Integer idbarber);
 
 }

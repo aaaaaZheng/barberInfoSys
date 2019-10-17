@@ -27,50 +27,73 @@ public class MemberController {
     @Autowired
     HttpServletResponse response;
 
+    /***
+     * 添加会员
+     * @param member
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public Result add(Member member){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
-        }
-        Integer idbarber = new Integer(request.getParameter("idbarber"));
+        }*/
+        Integer idbarber =  (Integer) request.getSession().getAttribute("idbarber");
         return memberService.addMember(member,idbarber);
     }
+
+    /***
+     * 充值退费
+     * @param idmember
+     * @param num
+     * @return
+     */
     @RequestMapping(value = "/amount",method = RequestMethod.PUT)
-    public Result topUp(Integer idMember,Double num){
+    public Result topUp(Integer idmember,Double num){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
-        }
+        }*/
         if(num>=0){
-            return memberService.topUp(idMember,num);
+            return memberService.topUp(idmember,num);
         }else{
-            return memberService.returnMoney(idMember, num);
+            return memberService.returnMoney(idmember, num);
         }
     }
+
+    /***
+     * 删除会员
+     * @param idmember
+     * @return
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     public Result del(Integer idmember){
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
-        }
+        }*/
         return memberService.delMember(idmember);
     }
+
+    /***
+     * 查询当前店铺所有会员
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAllByBarber(){
         Object idbarber = request.getSession().getAttribute("idbarber");
         Object username = request.getSession().getAttribute("username");
-        if (username==null){
+        /*if (username==null){
             Result result = new Result();
             result.setMessage("请先登录");
             return result;
-        }
+        }*/
         Barber barber = new Barber();
         barber.setIdbarber((Integer) idbarber);
         return memberService.findAllMemberByBarber(barber);

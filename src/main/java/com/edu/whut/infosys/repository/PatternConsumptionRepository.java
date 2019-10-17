@@ -1,5 +1,6 @@
 package com.edu.whut.infosys.repository;
 
+import com.edu.whut.infosys.bean.entity.Barber;
 import com.edu.whut.infosys.bean.entity.PatternConsumption;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,21 @@ public interface PatternConsumptionRepository extends Repository<PatternConsumpt
      * @return
      */
     List<PatternConsumption> findAll();
+
+    /***
+     * 根据名字和店铺查找pattern
+     * @param name
+     * @param barber
+     * @return
+     */
+    PatternConsumption findByNameAndBarber(String name,Barber barber);
+
+    /***
+     * 根据店铺查找pattern
+     * @param barber
+     * @return
+     */
+    List<PatternConsumption> findAllByBarber(Barber barber);
     /***
      * 保存消费方式
      * @param patternConsumption

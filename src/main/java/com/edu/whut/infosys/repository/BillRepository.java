@@ -44,7 +44,7 @@ public interface BillRepository extends Repository<Bill,Integer> {
      * @param id
      * @return
      */
-    @Query(nativeQuery = true,value = "SELECT member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idbarber = ?1 ")
+    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idbarber = ?1 ")
     List<Object> findByidBarber(Integer id);
 
     /**
@@ -52,6 +52,6 @@ public interface BillRepository extends Repository<Bill,Integer> {
      * @param id
      * @return
      */
-    @Query(nativeQuery = true,value = "SELECT member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idmemeber = ?1 ")
+    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idmemeber = ?1 ")
     List<Object> findByidMember(Integer id);
 }

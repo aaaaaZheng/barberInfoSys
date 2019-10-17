@@ -30,4 +30,11 @@ public interface BarberRepository extends Repository<Barber,Integer>{
      */
     Barber save(Barber barber);
 
+    /***
+     * 根据名字查找
+     * @param name
+     * @return
+     */
+    Barber findByName(String name);
+
 }

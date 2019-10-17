@@ -3,6 +3,7 @@ package com.edu.whut.infosys.controller;
 
 import com.edu.whut.infosys.bean.ChangeBossForm;
 import com.edu.whut.infosys.bean.Result;
+import com.edu.whut.infosys.bean.entity.Barber;
 import com.edu.whut.infosys.bean.entity.Boss;
 import com.edu.whut.infosys.serivce.BarberService;
 import com.edu.whut.infosys.serivce.BossService;
@@ -40,18 +41,9 @@ public class BossController {
      * @param boss
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result login(Boss boss, HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
-       /*Object isLogin = session.getAttribute("isLogin");
-        if(isLogin!=null) {
-            boolean attribute = (boolean) session.getAttribute("isLogin");
-            if (attribute == true) {
-                Result result = new Result();
-                result.setMsg("用户已登录");
-                return result;
-            }
-        }*/
         Result loginResult = bossService.login(boss);
         if(loginResult.isSuccess()){
             session.setAttribute("isLogin",true);
@@ -59,10 +51,11 @@ public class BossController {
             System.out.println(boss.getUsername());
             session.setAttribute("username",boss.getUsername());
             System.out.println(barberService.findIdBarberByBossUsername(boss.getUsername()));
-            Integer idBarberByBossUsername = barberService.findIdBarberByBossUsername(boss.getUsername());
-            if(idBarberByBossUsername!=null){
-                session.setAttribute("idbarber",idBarberByBossUsername);
+            Barber barber = bossService.findByUsername(boss.getUsername()).getBarber();
+            if(barber!=null){
+                session.setAttribute("idbarber",barber.getIdbarber());
             }
+
             Cookie cookie = new Cookie("sessionId", session.getId());
             response.addCookie(cookie);
         }
@@ -80,14 +73,15 @@ public class BossController {
     public Result changePassword(ChangeBossForm changeBossForm, HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         Object isLogin = session.getAttribute("isLogin");
-        if(isLogin!=null && (boolean)isLogin ==true) {
-            changeBossForm.setUsername((String) session.getAttribute("username"));
-            return bossService.changePassword(changeBossForm);
+        changeBossForm.setUsername((String) session.getAttribute("username"));
+        return bossService.changePassword(changeBossForm);
+        /*if(isLogin!=null && (boolean)isLogin ==true) {
+
         }else{
             Result result = new Result();
             result.setMessage("请登录");
             return result;
-        }
+        }*/
 
     }
 }

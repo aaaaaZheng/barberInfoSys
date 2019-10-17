@@ -69,11 +69,11 @@ public class MemberServiceImpl implements MemberService {
             if(aMember==null){
                 result.setMessage("用户未找到");
             }else{
-                if((aMember.getAmount()-num)<0){
+                if((aMember.getAmount()+num)<0){
                     result.setMessage("退款额度大于余额退款失败");
                 }else{
 
-                    aMember.setAmount(aMember.getAmount()-num);
+                    aMember.setAmount(aMember.getAmount()+num);
                     memberRepository.save(aMember);
                     result.setMessage("退费成功");
                     result.setSuccess(true);
