@@ -24,10 +24,10 @@ import java.util.Set;
  * @author aaaaaaa
  */
 @Order(2)
-@WebFilter(filterName = "loginFilter",urlPatterns = "/member")
+@WebFilter(filterName = "loginFilter",urlPatterns = "/*")
 public class LoginFilter implements Filter {
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/boss/login", "/boss", "/boss/password")));
+            Arrays.asList("/boss/login", "/boss")));
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
