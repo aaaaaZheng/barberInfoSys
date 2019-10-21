@@ -2,8 +2,7 @@ package com.edu.whut.infosys.serivce;
 
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
-import com.edu.whut.infosys.bean.entity.Bill;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 
 /**
  * @author aaaaaaa
@@ -37,5 +36,5 @@ public interface BillService {
      * @param member
      * @return
      */
-    Result findBillByMember(Member member);
+    Result findBillByMember(Member1 member);
 }

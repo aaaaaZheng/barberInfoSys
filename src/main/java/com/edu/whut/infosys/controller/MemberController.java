@@ -2,10 +2,9 @@ package com.edu.whut.infosys.controller;
 
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 import com.edu.whut.infosys.serivce.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,13 +32,8 @@ public class MemberController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public Result add(Member member){
+    public Result add(Member1 member){
         Object username = request.getSession().getAttribute("username");
-        /*if (username==null){
-            Result result = new Result();
-            result.setMessage("请先登录");
-            return result;
-        }*/
         Integer idbarber =  (Integer) request.getSession().getAttribute("idbarber");
         return memberService.addMember(member,idbarber);
     }
@@ -50,14 +44,9 @@ public class MemberController {
      * @param num
      * @return
      */
-    @RequestMapping(value = "/amount",method = RequestMethod.PUT)
+    @RequestMapping(value = "/amount",method = RequestMethod.POST)
     public Result topUp(Integer idmember,Double num){
         Object username = request.getSession().getAttribute("username");
-        /*if (username==null){
-            Result result = new Result();
-            result.setMessage("请先登录");
-            return result;
-        }*/
         if(num>=0){
             return memberService.topUp(idmember,num);
         }else{
@@ -70,14 +59,9 @@ public class MemberController {
      * @param idmember
      * @return
      */
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del",method = RequestMethod.POST)
     public Result del(Integer idmember){
         Object username = request.getSession().getAttribute("username");
-        /*if (username==null){
-            Result result = new Result();
-            result.setMessage("请先登录");
-            return result;
-        }*/
         return memberService.delMember(idmember);
     }
 
@@ -89,14 +73,13 @@ public class MemberController {
     public Result findAllByBarber(){
         Object idbarber = request.getSession().getAttribute("idbarber");
         Object username = request.getSession().getAttribute("username");
-        /*if (username==null){
-            Result result = new Result();
-            result.setMessage("请先登录");
-            return result;
-        }*/
         Barber barber = new Barber();
         barber.setIdbarber((Integer) idbarber);
         return memberService.findAllMemberByBarber(barber);
+    }
+    @RequestMapping(value = "/id",method = RequestMethod.GET)
+    public  Result findById(Integer idmember){
+        return memberService.findMemberById(idmember);
     }
 
 }

@@ -2,7 +2,7 @@ package com.edu.whut.infosys.repository;
 
 import com.edu.whut.infosys.bean.entity.Barber;
 import com.edu.whut.infosys.bean.entity.Bill;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -31,7 +31,7 @@ public interface BillRepository extends Repository<Bill,Integer> {
      * @param member
      * @return
      */
-    List<Bill> findByMember(Member member);
+    List<Bill> findByMember(Member1 member);
     /***
      * 保存账单
      * @param bill
@@ -44,7 +44,7 @@ public interface BillRepository extends Repository<Bill,Integer> {
      * @param id
      * @return
      */
-    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idbarber = ?1 ")
+    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member1.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member1 on bill.idmemeber = member1.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idbarber = ?1 ")
     List<Object> findByidBarber(Integer id);
 
     /**
@@ -52,6 +52,6 @@ public interface BillRepository extends Repository<Bill,Integer> {
      * @param id
      * @return
      */
-    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member on bill.idmemeber = member.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idmemeber = ?1 ")
+    @Query(nativeQuery = true,value = "SELECT CREATE_TIME,member1.name memberName,barber.name barberName,pattern_consumption.name patternName,bill.amount FROM ((bill  join barber on bill.idbarber = barber.idbarber)  join member1 on bill.idmemeber = member1.idmember )  join pattern_consumption on bill.idpattern_consumption = pattern_consumption.idpattern_consumption WHERE bill.idmemeber = ?1 ")
     List<Object> findByidMember(Integer id);
 }

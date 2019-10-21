@@ -3,7 +3,6 @@ package com.edu.whut.infosys.bean.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -33,9 +32,11 @@ public class Barber {
     @JsonIgnoreProperties("barber")
     @JSONField(serialize = false)*/
     //@JoinColumn(name = "idmember",referencedColumnName = )
-    @OneToMany(cascade={CascadeType.ALL},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "barber",cascade={CascadeType.ALL},fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("barber")
+    @JSONField(serialize = false)
     @ToString.Exclude
-    private List<Member> memberList;
+    private List<Member1> memberList;
     @OneToMany(mappedBy = "barber",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("barber")
     @JSONField(serialize = false)
@@ -46,5 +47,4 @@ public class Barber {
     @JSONField(serialize = false)
     @ToString.Exclude
     private List<PatternConsumption> patternConsumptionList;
-
 }

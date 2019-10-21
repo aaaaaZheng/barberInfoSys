@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.edu.whut</groupId>
     <artifactId>infosys</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>infosys</name>
     <description>Demo project for Spring Boot</description>
 
@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -57,14 +58,15 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.12</version>
-            <!--<scope>runtime</scope>-->
+            <version>8.0.18</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.41</version>
         </dependency>
+
     </dependencies>
 
     <build>

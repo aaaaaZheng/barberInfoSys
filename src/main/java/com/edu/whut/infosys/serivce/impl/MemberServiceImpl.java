@@ -2,7 +2,7 @@ package com.edu.whut.infosys.serivce.impl;
 
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 import com.edu.whut.infosys.repository.BarberRepository;
 import com.edu.whut.infosys.repository.MemberRepository;
 import com.edu.whut.infosys.serivce.MemberService;
@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
     BarberRepository barberRepository;
 
     @Override
-    public Result addMember(Member member,Integer idbarber) {
+    public Result addMember(Member1 member, Integer idbarber) {
         Result result = new Result();
         if(member.getName()==null){
             result.setMessage("用户名缺失");
@@ -33,8 +33,9 @@ public class MemberServiceImpl implements MemberService {
             }else{
                 member.setBarber(aBarber);
                 System.out.println("打印会员信息"+member);
-                memberRepository.save(member);
+                Member1 save = memberRepository.save(member);
                 result.setSuccessAndMsg(true, "添加成功");
+                result.setDetail(save);
             }
         }
         return result;
@@ -46,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         if(id==null){
             result.setMessage("id缺失");
         }else{
-            Member aMember = memberRepository.findByIdmember(id);
+            Member1 aMember = memberRepository.findMemberByIdmember(id);
             if(aMember==null){
                 result.setMessage("用户未找到");
             }else{
@@ -65,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
         if(id==null){
             result.setMessage("id缺失");
         }else{
-            Member aMember = memberRepository.findByIdmember(id);
+            Member1 aMember = memberRepository.findMemberByIdmember(id);
             if(aMember==null){
                 result.setMessage("用户未找到");
             }else{
@@ -89,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
         if(id==null){
             result.setMessage("id缺失");
         }else{
-            Member aMember = memberRepository.findByIdmember(id);
+            Member1 aMember = memberRepository.findMemberByIdmember(id);
             if (aMember != null) {
                 memberRepository.delete(aMember);
             }
@@ -105,10 +106,28 @@ public class MemberServiceImpl implements MemberService {
         if(barber.getIdbarber()==null){
             result.setMessage("id缺失");
         }else{
-            List<Member> members = memberRepository.findAllByBarber(barberRepository.findByIdbarber(barber.getIdbarber()));
+            List<Member1> members = memberRepository.findAllByBarber(barberRepository.findByIdbarber(barber.getIdbarber()));
             result.setSuccess(true);
             result.setMessage("查找成功");
             result.setDetail(members);
+        }
+        return result;
+    }
+
+    @Override
+    public Result findMemberById(Integer idmember) {
+        Result result = new Result();
+        if(idmember==null){
+            result.setMessage("id缺失");
+        }else{
+            Member1 byIdmember = memberRepository.findMemberByIdmember(idmember);
+            if (byIdmember == null) {
+                result.setMessage("查找的会员不存在");
+            }else{
+                result.setDetail(byIdmember);
+                result.setMessage("查找成功");
+                result.setSuccess(true);
+            }
         }
         return result;
     }

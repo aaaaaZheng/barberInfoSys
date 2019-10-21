@@ -14,10 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -28,6 +25,7 @@ import java.util.Set;
 public class LoginFilter implements Filter {
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("/boss/login", "/boss")));
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -41,10 +39,17 @@ public class LoginFilter implements Filter {
         boolean allowedPath = ALLOWED_PATHS.contains(path);
         HttpSession session = req.getSession();
         Object name = session.getAttribute("username");
+        System.out.println("filterid+++"+session.getId());
+
+
+        System.out.println(111111);
         if(allowedPath){
+            System.out.println(22222);
             chain.doFilter(req, rep);
         }else{
             if(name==null){
+
+                System.out.println(33333);
                 //设置允许跨域的配置
                 // 这里填写你允许进行跨域的主机ip（正式上线时可以动态配置具体允许的域名和IP）
                 rep.setHeader("Access-Control-Allow-Origin", "*");
@@ -56,6 +61,7 @@ public class LoginFilter implements Filter {
 
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json; charset=utf-8");
+
                 Result result = new Result();
                 result.setMessage("请登录");
                 OutputStreamWriter osw =new OutputStreamWriter(response.getOutputStream(),"UTF-8");
@@ -66,10 +72,13 @@ public class LoginFilter implements Filter {
                 writer.close();
                 osw.close();
             }else{
+                System.out.println(4444);
                 System.out.println("用户："+name+"   访问了："+((HttpServletRequest) request).getServletPath());
                 chain.doFilter(req, rep);
             }
+            System.out.println(5555);
         }
+        System.out.println(6666);
     }
 
     @Override

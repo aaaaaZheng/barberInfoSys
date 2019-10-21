@@ -3,7 +3,7 @@ package com.edu.whut.infosys.controller;
 
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 import com.edu.whut.infosys.serivce.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,7 +75,7 @@ public class BillController {
      * @return
      */
     @RequestMapping(value = "/member", method = RequestMethod.GET)
-    public Result findAllByMember(Member member){
+    public Result findAllByMember(Member1 member){
         Object username = request.getSession().getAttribute("username");
         return billService.findBillByMember(member);
     }

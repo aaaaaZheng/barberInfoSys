@@ -44,6 +44,17 @@ public class BossController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result login(Boss boss, HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
+
+        Object username = request.getSession().getAttribute("username");
+        Object idbarber1 = request.getSession().getAttribute("idbarber");
+
+        if(username!=null){
+            session.removeAttribute("username");
+            session.removeAttribute("isLogin");
+            if(idbarber1!=null){
+                session.removeAttribute("idbarber1");
+            }
+        }
         Result loginResult = bossService.login(boss);
         if(loginResult.isSuccess()){
             session.setAttribute("isLogin",true);

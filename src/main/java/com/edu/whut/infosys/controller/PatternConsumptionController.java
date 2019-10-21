@@ -73,7 +73,7 @@ public class PatternConsumptionController {
      * @param patternConsumption
      * @return
      */
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del",method = RequestMethod.POST)
     private Result del(PatternConsumption patternConsumption){
         Object username = request.getSession().getAttribute("username");
         /*if (username==null){

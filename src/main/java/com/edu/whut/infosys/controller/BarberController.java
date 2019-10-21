@@ -58,8 +58,6 @@ public class BarberController {
         System.out.println(username);
         System.out.println(request.getSession().getAttribute("isLogin"));
         System.out.println("获取barber"+request.getSession().getId());
-
-
         if(idbarber==null){
             result.setMessage("还未添加店铺信息");
             return result;

@@ -18,7 +18,7 @@ public class PatternConsumption {
     @Id
     @GeneratedValue
     private Integer idpatternConsumption;
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private Float amount;

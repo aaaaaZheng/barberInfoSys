@@ -3,7 +3,7 @@ package com.edu.whut.infosys.serivce.impl;
 import com.edu.whut.infosys.bean.Result;
 import com.edu.whut.infosys.bean.entity.Barber;
 import com.edu.whut.infosys.bean.entity.Bill;
-import com.edu.whut.infosys.bean.entity.Member;
+import com.edu.whut.infosys.bean.entity.Member1;
 import com.edu.whut.infosys.repository.BarberRepository;
 import com.edu.whut.infosys.repository.BillRepository;
 import com.edu.whut.infosys.repository.MemberRepository;
@@ -37,15 +37,18 @@ public class BillServiceImpl  implements BillService {
         Bill bill = new Bill();
         bill.setBarber(barberRepository.findByIdbarber(idBarber));
         bill.setPatternConsumption(patternConsumptionRepository.findByIdpatternConsumption(idpatten));
-        System.out.println("套餐号"+idpatten);
-        System.out.println("套餐"+patternConsumptionRepository.findByIdpatternConsumption(idpatten));
-        bill.setMember(memberRepository.findByIdmember(idMemeber));
+        Member1 byIdmember = memberRepository.findMemberByIdmember(idMemeber);
+        if(byIdmember==null){
+            result.setMessage("会员号不存在");
+        }else{
+            bill.setMember(byIdmember);
+        }
         bill.setAmount(bill.getPatternConsumption().getAmount());
         if(bill.getAmount()>bill.getMember().getAmount()){
             result.setMessage("用户余额不足");
         }else{
             billRepository.save(bill);
-            Member member = bill.getMember();
+            Member1 member = bill.getMember();
             member.setAmount(member.getAmount()-bill.getAmount());
             memberRepository.save(member);
             result.setSuccess(true);
@@ -100,7 +103,7 @@ public class BillServiceImpl  implements BillService {
     }
 
     @Override
-    public Result findBillByMember(Member member) {
+    public Result findBillByMember(Member1 member) {
         Result result = new Result();
         if(member.getIdmember()==null){
             result.setMessage("查询信息不完整");

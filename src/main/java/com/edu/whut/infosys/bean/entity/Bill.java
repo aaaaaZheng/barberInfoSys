@@ -27,7 +27,7 @@ public class Bill {
     @JoinColumn(name = "idmemeber")
     @JSONField(serialize = false)
     @ToString.Exclude
-    private Member member;
+    private Member1 member;
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name = "idbarber")
     @JSONField(serialize = false)
